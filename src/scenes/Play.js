@@ -151,7 +151,20 @@ class Play extends Phaser.Scene {
         this.p1Score += ship.points;
         this.scoreLeft.text = this.p1Score;
         this.remainingTime += 2000;
-        this.sound.play('sfx_explosion');
+
+        const sounds = [
+            'sfx_explosion0',
+            'sfx_explosion1',
+            'sfx_explosion2',
+            'sfx_explosion3',
+            'sfx_explosion4'
+        ];
+        
+        // generate a random index within the range of the array
+        const randomIndex = Math.floor(Math.random() * sounds.length);
+        
+        // play the sound at the randomly selected index
+        this.sound.play(sounds[randomIndex]);
     }
     
       updateTimer() {
