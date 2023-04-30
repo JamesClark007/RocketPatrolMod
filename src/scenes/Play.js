@@ -53,31 +53,43 @@ class Play extends Phaser.Scene {
         // initialize score
         this.p1Score = 0;
 
+        const highScoreManager = this.registry.get('highScoreManager');
+
+        // Initialize the high score if it's not already set
+        if (highScoreManager.getHighScore() === 0) {
+            highScoreManager.setHighScore(0);
+        }
+
+
+
         // display score
         let scoreConfig = {
-        fontFamily: 'Courier',
-        fontSize: '28px',
-        backgroundColor: '#F3B141',
-        color: '#843605',
-        align: 'right',
-        padding: {
-            top: 5,
-            bottom: 5,
-        },
-        fixedWidth: 100
-        }
-        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            backgroundColor: '#F3B141',
+            color: '#843605',
+            align: 'right',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 100
+        };
+
+        this.scoreLeft = this.add.text(borderUISize + borderPadding,
+             borderUISize + borderPadding*2, this.p1Score, scoreConfig);
+
+        this.highScoreText = this.add.text(borderUISize + borderPadding + 200,
+            borderUISize + borderPadding*2,
+            `${highScoreManager.getHighScore()}`, scoreConfig);
+        
 
         // GAME OVER flag
         this.gameOver = false;
 
         // 60-second play clock
         scoreConfig.fixedWidth = 0;
-        // this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
-        //     this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
-        //     this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← for Menu', scoreConfig).setOrigin(0.5);
-        //     this.gameOver = true;
-        // }, null, this);
+        
 
         this.remainingTime = game.settings.gameTimer;
 
@@ -95,9 +107,15 @@ class Play extends Phaser.Scene {
     update() {
         // check key input for restart
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
+            const highScoreManager = this.registry.get('highScoreManager');
+            highScoreManager.setHighScore(this.p1Score);
+
             this.scene.restart();
         }
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+            const highScoreManager = this.registry.get('highScoreManager');
+            highScoreManager.setHighScore(this.p1Score);
+            
             this.scene.start("menuScene");
         }
         this.starfield.tilePositionX -= 4;
@@ -121,6 +139,12 @@ class Play extends Phaser.Scene {
             this.p1Rocket.reset();
             this.shipExplode(this.ship01);
         }
+        const highScoreManager = this.registry.get('highScoreManager');
+        if (this.p1Score > highScoreManager.getHighScore()) {
+            highScoreManager.setHighScore(this.p1Score);
+            this.highScoreText.setText(`${highScoreManager.getHighScore()}`);
+        }
+
     }
 
 
