@@ -16,15 +16,20 @@ class Menu extends Phaser.Scene {
         this.load.audio('sfx_explosion2', './assets/mixkit-arcade-game-explosion-1699.wav');
         this.load.audio('sfx_explosion3', './assets/mixkit-arcade-game-explosion-2759.wav');
         this.load.audio('sfx_explosion4', './assets/mixkit-fast-game-explosion-1688.wav');
+
+        this.load.image('menuBackground', './assets/menuBackground.png');
       }
     
     create() {
+      this.add.image(0, 0, 'menuBackground').setOrigin(0, 0);
+
+
         let menuConfig = {
-            fontFamily: 'Courier',
-            fontSize: '28px',
+            fontFamily: 'Arial',
+            fontSize: '36px',
             backgroundColor: '#F3B141',
-            color: '#843605',
-            align: 'right',
+            color: '#FFFFFF',
+            align: 'center',
             padding: {
                 top: 5,
                 bottom: 5,
@@ -35,13 +40,10 @@ class Menu extends Phaser.Scene {
       this.add.text(game.config.width/2, game.config.height/2 - borderUISize
       - borderPadding, 'ROCKET PATROL', menuConfig).setOrigin(0.5);
 
-      this.add.text(game.config.width/2, game.config.height/2,
-       'Use <- -> arrows to move & (F) to fire', menuConfig).setOrigin(.5);
-       menuConfig.backgroundColor = '#00FF00';
-       menuConfig.color = '#000';
+      menuConfig.fontSize = '24px';
+      this.add.text(game.config.width / 2, game.config.height / 2, 'Use <- -> arrows to move & (F) to fire', menuConfig).setOrigin(0.5);
+      this.add.text(game.config.width / 2, game.config.height / 2 + 50, 'Press <- for Novice or -> for Expert', menuConfig).setOrigin(0.5);
 
-       this.add.text(game.config.width/2, game.config.height/2 + borderPadding + borderUISize,
-        'Press <- for Novice or -> for Expert', menuConfig).setOrigin(.5);
         
        // define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
