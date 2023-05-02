@@ -9,8 +9,11 @@
 // Create a new scrolling tile sprite for the background (5)
 // Create a new enemy Spaceship type (w/ new artwork) that's smaller, moves faster, and is worth more points (15)
 // Create a new title screen (e.g., new artwork, typography, layout) (10)
+// Implement the 'FIRE' UI text from the original game (5)
 
-// 65/100
+
+
+// 70/100
 
 // Implement mouse control for player movement and mouse click to fire (15)
 

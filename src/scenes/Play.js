@@ -259,10 +259,6 @@ class Play extends Phaser.Scene {
                     this.timeEvent.remove(); // Stop the countdown timer
                 }
             }
-        }
-
-    
-      
-      
+        }    
   }
   
