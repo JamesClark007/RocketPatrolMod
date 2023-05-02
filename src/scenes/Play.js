@@ -7,6 +7,7 @@ class Play extends Phaser.Scene {
         // load images/tile sprites
         this.load.image('rocket', './assets/rocket.png');
         this.load.image('spaceship', './assets/spaceship.png');
+        this.load.image('SmallSpaceship', './assets/spaceship01.png');
         this.load.image('starfield', './assets/starfield.png');
         this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
 
@@ -33,6 +34,8 @@ class Play extends Phaser.Scene {
         this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30).setOrigin(0, 0);
         this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'spaceship', 0, 20).setOrigin(0,0);
         this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0,0);
+
+        this.ship04 = new SmallSpaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'SmallSpaceship', 0, 40).setOrigin(0,0);
         
              // define keys
 
@@ -124,9 +127,16 @@ class Play extends Phaser.Scene {
             this.ship01.update();           // update spaceships (x3)
             this.ship02.update();
             this.ship03.update();
+
+            this.ship04.update();
         }
 
         // check collisions
+        if(this.checkCollision(this.p1Rocket, this.ship04)) {
+            this.p1Rocket.reset();
+            this.shipExplode(this.ship04);   
+        }
+
         if(this.checkCollision(this.p1Rocket, this.ship03)) {
             this.p1Rocket.reset();
             this.shipExplode(this.ship03);   
@@ -149,16 +159,30 @@ class Play extends Phaser.Scene {
 
 
     checkCollision(rocket, ship) {
-        // simple AABB checking
-        if (rocket.x < ship.x + ship.width && 
-          rocket.x + rocket.width > ship.x && 
-          rocket.y < ship.y + ship.height &&
-          rocket.height + rocket.y > ship. y) {
-          return true;
-        } else {
-          return false;
+        let shipWidth = ship.width;
+        let shipHeight = ship.height;
+    
+        // Check if the ship is an instance of SmallSpaceship
+        if (ship instanceof SmallSpaceship) {
+            shipWidth *= 0.3;
+            shipHeight *= 0.1;
         }
-      }
+    
+        // // Calculate the adjusted ship position for collision checking
+        // const shipX = ship.x + (ship.width - shipWidth) / 2;
+        // const shipY = ship.y + (ship.height - shipHeight) / 2;
+    
+        // Simple AABB checking with the adjusted hitbox
+        if (rocket.x < ship.x + shipWidth && 
+            rocket.x + rocket.width > ship.x && 
+            rocket.y < ship.y + shipHeight &&
+            rocket.height + rocket.y > ship. y) {
+            return true;
+          } else {
+            return false;
+          }
+    }
+    
 
       shipExplode(ship) {
         // temporarily hide ship
