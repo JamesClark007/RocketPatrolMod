@@ -11,13 +11,18 @@ class Play extends Phaser.Scene {
         this.load.image('starfield', './assets/starfield.png');
         this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
 
+
+        this.load.audio('music', './assets/music.mp3');
     }
       
     
     create() {
+
+
         
         // place tile sprite
         this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
+
 
         // green UI background
         this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0, 0);
@@ -44,6 +49,12 @@ class Play extends Phaser.Scene {
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
+
+        this.backgroundMusic = this.sound.add('music', {
+            volume: 0.1, // Set the volume (0.1 for 10% volume)
+            loop: true
+        });
+        this.backgroundMusic.play();
 
         // animation config
         this.anims.create({
@@ -112,12 +123,14 @@ class Play extends Phaser.Scene {
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
             const highScoreManager = this.registry.get('highScoreManager');
             highScoreManager.setHighScore(this.p1Score);
+            this.backgroundMusic.stop();
 
             this.scene.restart();
         }
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
             const highScoreManager = this.registry.get('highScoreManager');
             highScoreManager.setHighScore(this.p1Score);
+            this.backgroundMusic.stop();
             
             this.scene.start("menuScene");
         }
@@ -187,8 +200,10 @@ class Play extends Phaser.Scene {
       shipExplode(ship) {
         // temporarily hide ship
         ship.alpha = 0;
+
         // create explosion sprite at ship's position
         let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0, 0);
+
         boom.anims.play('explode'); // play explode animation
         boom.on('animationcomplete', () => { // callback after ani completes
             ship.reset(); // reset ship position
