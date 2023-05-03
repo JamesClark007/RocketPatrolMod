@@ -13,17 +13,23 @@
 
 // Create a new title screen (e.g., new artwork, typography, layout) (10)
 // Implement the 'FIRE' UI text from the original game (5)
-// Add your own (copyright-free) background music to the Play scene (please be mindful of the volume) (5) -music is very quiet
 
-// Implement mouse control for player movement and mouse click to fire (15) -you can use the keys or mouse, both work.
+// Add your own (copyright-free) background music to the Play scene (please be mindful of the volume) (5)
+// -music is very quiet
+
+// Implement mouse control for player movement and mouse click to fire (15) 
+// -you can use the keys or mouse, both work.
+
 // Implement the speed increase that happens after 30 seconds in the original game (5)
 
-
-// 90/100
-
-
-
 // Randomize each spaceship's movement direction at the start of each play (5)
+// -the ship move randomly in a verticle direction kind od floating thru the map
+
+
+// 95/100
+
+
+
 
 
 
