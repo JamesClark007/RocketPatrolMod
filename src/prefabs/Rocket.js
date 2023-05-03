@@ -27,10 +27,12 @@ class Rocket extends Phaser.GameObjects.Sprite {
       }
   
       // fire button
+
       if (Phaser.Input.Keyboard.JustDown(keyF) && !this.isFiring) {
         this.isFiring = true;
         this.sfxRocket.play();
       }
+
       // if fired, move up
       if (this.isFiring && this.y >= borderUISize * 3 + borderPadding) {
         this.y -= this.moveSpeed;
@@ -53,5 +55,9 @@ class Rocket extends Phaser.GameObjects.Sprite {
       this.isFiring = false;
       this.y = game.config.height - borderUISize - borderPadding;
     }
+    increaseSpeed() {
+        this.moveSpeed += 1; // You can adjust this value to change the speed increase amount
+    }
+
   }
   

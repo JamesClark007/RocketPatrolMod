@@ -7,19 +7,22 @@
 // Track a high score that persists across scenes and display it in the UI (5)
 // Allow the player to control the Rocket after it's fired (5)
 // Create a new scrolling tile sprite for the background (5)
+
 // Create a new enemy Spaceship type (w/ new artwork) that's smaller, moves faster, and is worth more points (15)
+// -hit box is a little bit off but still works 
+
 // Create a new title screen (e.g., new artwork, typography, layout) (10)
 // Implement the 'FIRE' UI text from the original game (5)
+// Add your own (copyright-free) background music to the Play scene (please be mindful of the volume) (5) -music is very quiet
 
-// Add your own (copyright-free) background music to the Play scene (please be mindful of the volume) (5)
-
-
-// 75/100
-
-
-// Implement mouse control for player movement and mouse click to fire (15)
-
+// Implement mouse control for player movement and mouse click to fire (15) -you can use the keys or mouse, both work.
 // Implement the speed increase that happens after 30 seconds in the original game (5)
+
+
+// 90/100
+
+
+
 // Randomize each spaceship's movement direction at the start of each play (5)
 
 

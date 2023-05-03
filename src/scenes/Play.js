@@ -1,6 +1,7 @@
 class Play extends Phaser.Scene {
     constructor() {
       super("playScene");
+
     }
 
     preload() {
@@ -17,6 +18,22 @@ class Play extends Phaser.Scene {
       
     
     create() {
+
+        this.flag = true;
+
+        // Enable mouse input
+        this.input.mouse.disableContextMenu();
+        this.input.on('pointermove', (pointer) => {
+            this.p1Rocket.x = Phaser.Math.Clamp(pointer.x, borderUISize + this.p1Rocket.width,
+                 game.config.width - borderUISize - this.p1Rocket.width);
+        });
+        this.input.on('pointerdown', (pointer) => {
+            if (!this.p1Rocket.isFiring) {
+                this.p1Rocket.isFiring = true;
+                this.p1Rocket.sfxRocket.play();
+            }
+        });
+        // -----------------------------------------------------------------
 
 
         
@@ -119,6 +136,15 @@ class Play extends Phaser.Scene {
 
 
     update() {
+        if (this.remainingTime < 30000 && this.flag) {
+            this.ship01.increaseSpeed();
+            this.ship02.increaseSpeed();
+            this.ship03.increaseSpeed();
+            this.ship04.increaseSpeed();
+            this.p1Rocket.increaseSpeed();
+            this.flag = false;
+        }    
+
         // check key input for restart
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
             const highScoreManager = this.registry.get('highScoreManager');
