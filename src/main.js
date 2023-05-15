@@ -26,7 +26,6 @@
 // -the ship move randomly in a verticle direction kind od floating thru the map
 
 
-// 95/100
 
 
 
